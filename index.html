@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiv Shankar Engg. Works — Electric Control Panels & Industrial Equipment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root{
+    --navy:#152238;
+    --navy-deep:#0d1727;
+    --steel:#3d4f6b;
+    --steel-light:#8fa1bc;
+    --yellow:#f2b705;
+    --yellow-deep:#d99e00;
+    --red:#b3272c;
+    --paper:#f2efe6;
+    --paper-dim:#e7e2d3;
+    --ink:#1a1a1a;
+    --ink-soft:#4a4a46;
+    --line:#c9c2ac;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    margin:0;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  img,svg{display:block;}
+
+  /* ---------- hazard stripe divider (signature element) ---------- */
+  .hazard{
+    height:14px;
+    width:100%;
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--yellow) 0px, var(--yellow) 22px,
+      var(--navy-deep) 22px, var(--navy-deep) 44px
+    );
+  }
+  .hazard.thin{height:8px;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    background:var(--navy-deep);
+    color:var(--paper-dim);
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.05em;
+    padding:8px 6vw;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px 20px;
+  }
+  .topbar span{opacity:0.85;}
+
+  /* ---------- nav ---------- */
+  nav{
+    background:var(--navy);
+    padding:18px 6vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .brandmark{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .badge{
+    width:52px;height:52px;
+    border:2px solid var(--yellow);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--yellow);
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.03em;
+    flex-shrink:0;
+  }
+  .brand-name{
+    color:var(--paper);
+    font-size:17px;
+    font-weight:600;
+    line-height:1.15;
+  }
+  .brand-name em{
+    color:var(--red);
+    font-style:normal;
+  }
+  .brand-sub{
+    color:var(--steel-light);
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    margin-top:3px;
+  }
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:32px;
+    margin:0;padding:0;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:500;
+  }
+  nav ul a{
+    color:var(--paper-dim);
+    text-decoration:none;
+    border-bottom:2px solid transparent;
+    padding-bottom:4px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  nav ul a:hover{color:var(--yellow); border-color:var(--yellow);}
+  nav ul a.active{color:var(--yellow); border-color:var(--yellow);}
+  nav{position:sticky; top:0; z-index:50; transition:box-shadow .25s ease, padding .25s ease;}
+  nav.scrolled{box-shadow:0 8px 24px rgba(0,0,0,0.25); padding:12px 6vw;}
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+  }
+  .nav-toggle span{
+    width:26px;height:2px;
+    background:var(--paper);
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  @media (max-width: 860px){
+    .nav-toggle{display:flex;}
+    nav ul{
+      display:flex;
+      position:absolute;
+      top:100%;
+      left:0;right:0;
+      flex-direction:column;
+      background:var(--navy);
+      gap:0;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    nav ul.open{max-height:280px;}
+    nav ul li{width:100%;}
+    nav ul a{
+      display:block;
+      padding:16px 6vw;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--navy);
+    color:var(--paper);
+    padding:90px 6vw 70px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    right:-10%;
+    top:-20%;
+    width:520px;height:520px;
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:50%;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:6%;
+    top:10%;
+    width:340px;height:340px;
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:50%;
+  }
+  .hero-inner{
+    max-width:760px;
+    position:relative;
+    z-index:2;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    color:var(--yellow);
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(38px,6vw,64px);
+    line-height:1.02;
+    font-weight:700;
+    color:var(--paper);
+  }
+  .hero h1 em{
+    color:var(--red);
+    font-style:normal;
+  }
+  .hero p.lede{
+    font-family:'Inter',sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    color:var(--steel-light);
+    max-width:540px;
+    margin-top:24px;
+    font-weight:400;
+  }
+  .hero-cta{
+    display:flex;
+    gap:16px;
+    margin-top:38px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding:14px 26px;
+    font-family:'Oswald',sans-serif;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    font-weight:600;
+    border:2px solid transparent;
+    transition:transform .15s ease, background .2s ease, color .2s ease;
+  }
+  .btn-solid{
+    background:var(--yellow);
+    color:var(--navy-deep);
+  }
+  .btn-solid:hover{background:#ffce33; transform:translateY(-2px);}
+  .btn-outline{
+    border-color:rgba(255,255,255,0.35);
+    color:var(--paper);
+  }
+  .btn-outline:hover{border-color:var(--yellow); color:var(--yellow); transform:translateY(-2px);}
+
+  /* ---------- about / nameplate ---------- */
+  .about{
+    padding:80px 6vw;
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:64px;
+    max-width:1280px;
+    margin:0 auto;
+  }
+  .section-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:14px;
+  }
+  .about h2{
+    font-size:clamp(26px,3.4vw,36px);
+    line-height:1.15;
+    color:var(--navy);
+    max-width:480px;
+  }
+  .about p{
+    font-size:15.5px;
+    line-height:1.8;
+    color:var(--ink-soft);
+    margin-top:22px;
+    max-width:480px;
+  }
+  .nameplate{
+    background:var(--navy-deep);
+    color:var(--paper-dim);
+    padding:0;
+    align-self:start;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .nameplate-head{
+    padding:22px 26px;
+    border-bottom:1px dashed rgba(255,255,255,0.18);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--yellow);
+  }
+  .nameplate dl{
+    padding:22px 26px;
+    margin:0;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:14px 18px;
+    font-size:13.5px;
+  }
+  .nameplate dt{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--steel-light);
+    letter-spacing:0.04em;
+  }
+  .nameplate dd{margin:0; color:var(--paper); font-weight:500;}
+
+  /* ---------- products ---------- */
+  .products{
+    background:var(--paper-dim);
+    padding:80px 6vw 90px;
+  }
+  .products-head{
+    max-width:1280px;
+    margin:0 auto 44px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .products-head h2{
+    font-size:clamp(26px,3.4vw,36px);
+    color:var(--navy);
+    max-width:520px;
+  }
+  .products-head p{
+    font-size:14px;
+    color:var(--ink-soft);
+    max-width:340px;
+    line-height:1.6;
+  }
+  .grid{
+    max-width:1280px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .card{
+    background:var(--paper);
+    padding:34px 28px;
+    position:relative;
+  }
+  .card .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--red);
+    letter-spacing:0.1em;
+    margin-bottom:16px;
+    display:block;
+  }
+  .card svg{margin-bottom:20px;}
+  .card h3{
+    font-size:16px;
+    color:var(--navy);
+    margin-bottom:10px;
+    letter-spacing:0.01em;
+  }
+  .card p{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ---------- leadership ---------- */
+  .leadership{
+    padding:80px 6vw;
+    max-width:1280px;
+    margin:0 auto;
+  }
+  .leadership h2{
+    font-size:clamp(26px,3.4vw,36px);
+    color:var(--navy);
+    margin-bottom:44px;
+    max-width:520px;
+  }
+  .people{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:28px;
+  }
+  .person{
+    border:1px solid var(--line);
+    padding:30px 28px;
+    background:var(--paper);
+    position:relative;
+  }
+  .person::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:4px;
+    background:var(--navy);
+  }
+  .person .role{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:10px;
+  }
+  .person h3{
+    font-size:21px;
+    color:var(--navy);
+    margin-bottom:16px;
+  }
+  .person .row{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    display:flex;
+    gap:10px;
+    margin-top:6px;
+  }
+  .person .row .k{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--steel);
+    min-width:52px;
+  }
+
+  /* ---------- contact / footer ---------- */
+  footer{
+    background:var(--navy-deep);
+    color:var(--paper-dim);
+    padding:70px 6vw 30px;
+  }
+  .footer-grid{
+    max-width:1280px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:48px;
+    padding-bottom:50px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  footer h4{
+    font-family:'Oswald',sans-serif;
+    font-size:13px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--yellow);
+    margin-bottom:18px;
+  }
+  footer .foot-brand{
+    font-family:'Oswald',sans-serif;
+    font-size:22px;
+    color:var(--paper);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  footer .foot-brand em{color:var(--red);font-style:normal;}
+  footer p{
+    font-size:13.5px;
+    line-height:1.75;
+    color:var(--steel-light);
+    margin:0;
+    max-width:320px;
+  }
+  footer address{
+    font-style:normal;
+    font-size:13.5px;
+    line-height:1.8;
+    color:var(--steel-light);
+  }
+  footer .contact-line{
+    display:flex;
+    gap:10px;
+    font-size:13.5px;
+    color:var(--paper-dim);
+    margin-top:10px;
+  }
+  footer .contact-line .k{
+    color:var(--steel-light);
+    font-family:'JetBrains Mono',monospace;
+    min-width:46px;
+  }
+  .bottom-bar{
+    max-width:1280px;
+    margin:0 auto;
+    padding-top:26px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--steel);
+    letter-spacing:0.04em;
+  }
+
+  @media (max-width: 860px){
+    .about{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .topbar{font-size:10.5px;}
+  }
+
+  @media (max-width: 560px){
+    .topbar{
+      padding:8px 18px;
+      justify-content:center;
+      text-align:center;
+    }
+    nav{
+      padding:14px 18px;
+    }
+    nav.scrolled{padding:12px 18px;}
+    .brandmark{gap:10px;}
+    .badge{
+      width:42px;height:42px;
+      font-size:12px;
+    }
+    .brand-name{font-size:15px;}
+    .brand-sub{font-size:8.5px; letter-spacing:0.08em;}
+    .hero{
+      padding:64px 18px 52px;
+    }
+    .hero h1{font-size:clamp(30px, 12vw, 42px);}
+    .hero p.lede{font-size:15px;}
+    .hero-cta{flex-direction:column;}
+    .btn{
+      width:100%;
+      text-align:center;
+    }
+    .about,
+    .products,
+    .leadership,
+    .quote,
+    footer{
+      padding-left:18px;
+      padding-right:18px;
+    }
+    .products-head,
+    .quote-inner,
+    .footer-grid{
+      gap:24px;
+    }
+    .card,
+    .person{
+      padding:24px 18px;
+    }
+    .quote-form input,
+    .quote-form select,
+    .quote-form textarea{
+      font-size:16px;
+    }
+    form.quote-form button{
+      width:100%;
+      justify-self:stretch;
+    }
+    .to-top{
+      right:16px;
+      bottom:16px;
+      width:44px;height:44px;
+    }
+    .bottom-bar{
+      justify-content:center;
+      text-align:center;
+    }
+  }
+
+  /* ---------- scroll reveal ---------- */
+  [data-reveal]{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  [data-reveal].is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- expandable product cards ---------- */
+  .card{cursor:pointer;}
+  .card .more{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease, margin-top .35s ease;
+  }
+  .card.open .more{
+    max-height:200px;
+    margin-top:14px;
+  }
+  .card .more-inner{
+    border-top:1px dashed var(--line);
+    padding-top:14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    line-height:1.8;
+    color:var(--steel);
+  }
+  .card .expand-hint{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--red);
+    margin-top:16px;
+    letter-spacing:0.06em;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .card .expand-hint svg{transition:transform .3s ease;}
+  .card.open .expand-hint svg{transform:rotate(180deg);}
+
+  /* ---------- back to top ---------- */
+  .to-top{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    width:48px;height:48px;
+    background:var(--yellow);
+    color:var(--navy-deep);
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(12px);
+    transition:opacity .25s ease, transform .25s ease, background .2s ease;
+    z-index:60;
+  }
+  .to-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+  .to-top:hover{background:#ffce33;}
+
+  /* ---------- quote form ---------- */
+  .quote{
+    background:var(--navy);
+    padding:80px 6vw;
+  }
+  .quote-inner{
+    max-width:1280px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:56px;
+  }
+  .quote h2{
+    color:var(--paper);
+    font-size:clamp(26px,3.4vw,36px);
+    max-width:420px;
+  }
+  .quote-inner > div:first-child p{
+    color:var(--steel-light);
+    font-size:14.5px;
+    line-height:1.75;
+    margin-top:20px;
+    max-width:400px;
+  }
+  .quote-contact{
+    margin-top:28px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--paper-dim);
+    line-height:2.1;
+  }
+  .quote-contact .k{color:var(--yellow); margin-right:8px;}
+  form.quote-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  form.quote-form .full{grid-column:1 / -1;}
+  form.quote-form label{
+    display:block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--steel-light);
+    margin-bottom:8px;
+  }
+  form.quote-form input,
+  form.quote-form select,
+  form.quote-form textarea{
+    width:100%;
+    background:var(--navy-deep);
+    border:1px solid rgba(255,255,255,0.15);
+    color:var(--paper);
+    padding:12px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    outline:none;
+    transition:border-color .2s ease;
+  }
+  form.quote-form input:focus,
+  form.quote-form select:focus,
+  form.quote-form textarea:focus{
+    border-color:var(--yellow);
+  }
+  form.quote-form textarea{resize:vertical; min-height:90px;}
+  form.quote-form .error-msg{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:#ff8080;
+    margin-top:6px;
+    min-height:14px;
+  }
+  form.quote-form button{
+    grid-column:1 / -1;
+    justify-self:start;
+    background:var(--yellow);
+    color:var(--navy-deep);
+    border:none;
+    padding:14px 32px;
+    font-family:'Oswald',sans-serif;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .2s ease, transform .15s ease;
+  }
+  form.quote-form button:hover{background:#ffce33; transform:translateY(-2px);}
+  .form-status{
+    grid-column:1 / -1;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--yellow);
+    min-height:18px;
+  }
+
+  @media (max-width: 860px){
+    .quote-inner{grid-template-columns:1fr;}
+    form.quote-form{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <span>PLOT NO. 64/3, HITKARI INDUSTRIAL COMPLEX, N.I.T. FARIDABAD</span>
+    <span>shivshankar45@rediffmail.com &nbsp;·&nbsp; +91 99992 23223</span>
+  </div>
+
+  <nav>
+    <div class="brandmark">
+      <div class="badge">SSEW</div>
+      <div>
+        <div class="brand-name">Shiv Shankar <em>Engg.</em> Works</div>
+        <div class="brand-sub">MANUFACTURERS &nbsp;·&nbsp; ESTD. FARIDABAD</div>
+      </div>
+    </div>
+    <ul id="navList">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#leadership">Leadership</a></li>
+      <li><a href="#quote">Get a quote</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="hazard"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Electric Control Panels &amp; Process Equipment</div>
+      <h1>Panels built for<br>the factory floor,<br>not the <em>brochure</em>.</h1>
+      <p class="lede">Shiv Shankar Engg. Works manufactures electric control panels, power factor control panels, painting booths, conveyors, and electrical &amp; diesel fired ovens for industrial plants across the NCR — engineered, wired and tested in-house at our Faridabad works.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn btn-solid">View our range</a>
+        <a href="tel:+919999223223" class="btn btn-outline">Get a quote</a>
+      </div>
+      <p style="margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--steel-light); letter-spacing:0.04em;">
+        Speak to our Technical Director, Divesh Bhatia — +91 99992 23223 · shivshankar45@rediffmail.com
+      </p>
+    </div>
+  </section>
+
+  <div class="hazard thin"></div>
+
+  <section class="about" id="about">
+    <div data-reveal>
+      <div class="section-label">// About the works</div>
+      <h2>Built to your drawing, tested before it leaves the shop.</h2>
+      <p>We don't work off a fixed catalogue. Every panel, booth, conveyor, or oven starts from your site's load schedule and layout, gets fabricated and wired at our Hitkari Industrial Complex unit, and is checked and signed off by our technical director before it ships — so what arrives on site is what was ordered, not a close approximation.</p>
+      <p>We work directly with plant engineers and EPC contractors — no middlemen, no catalogue guesswork. Tell us the load, the space, and the site conditions, and we build to that, not to a standard SKU.</p>
+    </div>
+    <div class="nameplate" data-reveal>
+      <div class="nameplate-head">Works nameplate</div>
+      <dl>
+        <dt>Unit</dt><dd>Shiv Shankar Engg. Works</dd>
+        <dt>Location</dt><dd>Hitkari Industrial Complex, N.I.T. Faridabad</dd>
+        <dt>Landmark</dt><dd>Behind Neel Kant Dharamkanta</dd>
+        <dt>Plot</dt><dd>64/3</dd>
+        <dt>Directors</dt><dd>A. Bhatia (MD) · D. Bhatia (Technical)</dd>
+        <dt>Contact</dt><dd>+91 99992 23223</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="products-head">
+      <h2>What we manufacture</h2>
+      <p>Five product lines, each built to order for the site it's going into.</p>
+    </div>
+    <div class="grid">
+
+      <div class="card" data-reveal>
+        <span class="tag">01 / PANELS</span>
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <rect x="7" y="4" width="32" height="38" rx="1" stroke="#152238" stroke-width="2"/>
+          <rect x="13" y="11" width="20" height="4" fill="#b3272c"/>
+          <line x1="13" y1="20" x2="33" y2="20" stroke="#152238" stroke-width="1.6"/>
+          <line x1="13" y1="26" x2="33" y2="26" stroke="#152238" stroke-width="1.6"/>
+          <circle cx="17" cy="33" r="2.4" stroke="#152238" stroke-width="1.6"/>
+          <circle cx="29" cy="33" r="2.4" stroke="#152238" stroke-width="1.6"/>
+        </svg>
+        <h3>Electric Control Panels</h3>
+        <p>Custom LT control panels built to your load schedule and site layout, fabricated and wired in-house.</p>
+        <div class="expand-hint">DETAILS <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="#b3272c" stroke-width="1.6" fill="none"/></svg></div>
+        <div class="more"><div class="more-inner">
+          Built to IS 8623 panel standards · CRCA sheet enclosures · copper busbar &amp; MCCB/MCB protection · powder-coated finish · tested before dispatch.
+        </div></div>
+      </div>
+
+      <div class="card" data-reveal>
+        <span class="tag">02 / POWER FACTOR</span>
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <rect x="6" y="6" width="34" height="34" rx="1" stroke="#152238" stroke-width="2"/>
+          <path d="M12 30 L18 16 L23 24 L28 12 L34 30" stroke="#b3272c" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        <h3>Power Factor Control Panels</h3>
+        <p>APFC panels sized to correct your plant's power factor and cut down on utility penalty charges.</p>
+        <div class="expand-hint">DETAILS <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="#b3272c" stroke-width="1.6" fill="none"/></svg></div>
+        <div class="more"><div class="more-inner">
+          Automatic Power Factor Correction with stepped capacitor banks · relay-based controller · sized against your monthly billing data.
+        </div></div>
+      </div>
+
+      <div class="card" data-reveal>
+        <span class="tag">03 / FINISHING</span>
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <rect x="5" y="10" width="36" height="24" stroke="#152238" stroke-width="2"/>
+          <line x1="5" y1="18" x2="41" y2="18" stroke="#152238" stroke-width="1.4"/>
+          <line x1="14" y1="18" x2="14" y2="34" stroke="#152238" stroke-width="1.4"/>
+          <line x1="32" y1="18" x2="32" y2="34" stroke="#152238" stroke-width="1.4"/>
+          <circle cx="23" cy="26" r="3" fill="#b3272c"/>
+        </svg>
+        <h3>Painting Booths</h3>
+        <p>Enclosed spray booths with filtered airflow for a clean, controlled paint finish on the shop floor.</p>
+        <div class="expand-hint">DETAILS <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="#b3272c" stroke-width="1.6" fill="none"/></svg></div>
+        <div class="more"><div class="more-inner">
+          Dry-filter or water-wash extraction · sized to your part dimensions · sized ducting &amp; blower to suit booth volume.
+        </div></div>
+      </div>
+
+      <div class="card" data-reveal>
+        <span class="tag">04 / MATERIAL HANDLING</span>
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <rect x="4" y="18" width="38" height="8" stroke="#152238" stroke-width="2"/>
+          <circle cx="10" cy="34" r="4" stroke="#152238" stroke-width="2"/>
+          <circle cx="36" cy="34" r="4" stroke="#152238" stroke-width="2"/>
+          <line x1="10" y1="26" x2="10" y2="30" stroke="#152238" stroke-width="2"/>
+          <line x1="36" y1="26" x2="36" y2="30" stroke="#152238" stroke-width="2"/>
+          <line x1="8" y1="22" x2="38" y2="22" stroke="#b3272c" stroke-width="1.6"/>
+        </svg>
+        <h3>Conveyors</h3>
+        <p>Belt and roller conveyor systems designed to your line speed and product handling requirements.</p>
+        <div class="expand-hint">DETAILS <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="#b3272c" stroke-width="1.6" fill="none"/></svg></div>
+        <div class="more"><div class="more-inner">
+          Belt, roller &amp; slat conveyor configurations · geared motor drives · built to your line speed and load rating.
+        </div></div>
+      </div>
+
+      <div class="card" data-reveal>
+        <span class="tag">05 / THERMAL</span>
+        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+          <rect x="6" y="6" width="34" height="34" rx="1" stroke="#152238" stroke-width="2"/>
+          <path d="M23 14 C18 20, 28 22, 23 30 C20 26, 26 24, 23 14" fill="#b3272c"/>
+        </svg>
+        <h3>Electrical &amp; Diesel Fired Ovens</h3>
+        <p>Industrial curing and drying ovens in electrical or diesel-fired configurations, built for continuous duty.</p>
+        <div class="expand-hint">DETAILS <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="#b3272c" stroke-width="1.6" fill="none"/></svg></div>
+        <div class="more"><div class="more-inner">
+          Insulated chamber construction · digital temperature control · electrical or diesel-fired heating, sized to batch or continuous duty.
+        </div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="leadership" id="leadership">
+    <div class="section-label">// Who you'll talk to</div>
+    <h2>Leadership</h2>
+    <div class="people">
+      <div class="person" data-reveal>
+        <div class="role">Managing Director</div>
+        <h3>Ashok Bhatia</h3>
+        <div class="row"><span class="k mono">Phone</span><span>+91 98106 46932</span></div>
+        <div class="row"><span class="k mono">Email</span><span>shivshankar45@rediffmail.com</span></div>
+      </div>
+      <div class="person" data-reveal>
+        <div class="role">Technical Director</div>
+        <h3>Divesh Bhatia</h3>
+        <div class="row"><span class="k mono">Phone</span><span>+91 99992 23223</span></div>
+        <div class="row"><span class="k mono">Email</span><span>shivshankar45@rediffmail.com</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hazard thin"></div>
+
+  <section class="quote" id="quote">
+    <div class="quote-inner">
+      <div data-reveal>
+        <div class="section-label">// Request a quote</div>
+        <h2>Tell us what you need built.</h2>
+        <p>Share your load schedule, site conditions, or drawing and we'll come back with a quote from our technical director directly — no call centre in between.</p>
+        <div class="quote-contact">
+          <div><span class="k">Tech. Director</span>Divesh Bhatia · +91 99992 23223</div>
+          <div><span class="k">Email</span>shivshankar45@rediffmail.com</div>
+        </div>
+      </div>
+      <form class="quote-form" id="quoteForm" novalidate>
+        <div>
+          <label for="qName">Your name</label>
+          <input type="text" id="qName" name="name" required>
+          <div class="error-msg" id="errName"></div>
+        </div>
+        <div>
+          <label for="qCompany">Company</label>
+          <input type="text" id="qCompany" name="company">
+          <div class="error-msg"></div>
+        </div>
+        <div>
+          <label for="qPhone">Phone</label>
+          <input type="tel" id="qPhone" name="phone" required>
+          <div class="error-msg" id="errPhone"></div>
+        </div>
+        <div>
+          <label for="qProduct">What do you need?</label>
+          <select id="qProduct" name="product">
+            <option>Electric Control Panel</option>
+            <option>Power Factor Control Panel</option>
+            <option>Painting Booth</option>
+            <option>Conveyor</option>
+            <option>Electrical / Diesel Fired Oven</option>
+            <option>Not sure yet</option>
+          </select>
+          <div class="error-msg"></div>
+        </div>
+        <div class="full">
+          <label for="qMessage">Requirement details</label>
+          <textarea id="qMessage" name="message" placeholder="Load, dimensions, site conditions, timeline..."></textarea>
+          <div class="error-msg"></div>
+        </div>
+        <button type="submit">Send request</button>
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </section>
+
+  <div class="hazard thin"></div>
+
+  <footer id="contact">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-brand">Shiv Shankar <em>Engg.</em> Works</div>
+        <p>Manufacturers of electric control panels, power factor control panels, painting booths, conveyors, and electrical &amp; diesel fired ovens — built in Faridabad, NCR.</p>
+      </div>
+      <div>
+        <h4>Works address</h4>
+        <address>
+          Plot No. 64/3, Hitkari Industrial Complex,<br>
+          Behind Neel Kant Dharamkanta,<br>
+          N.I.T. Faridabad
+        </address>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <div class="contact-line"><span class="k">Email</span><span>shivshankar45@rediffmail.com</span></div>
+        <div class="contact-line"><span class="k">MD</span><span>Ashok Bhatia — 98106 46932</span></div>
+        <div class="contact-line"><span class="k">Tech.</span><span>Divesh Bhatia — 99992 23223</span></div>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <span>SHIV SHANKAR ENGG. WORKS — SAMPLE WEBSITE</span>
+      <span>DESIGN DRAFT FOR REVIEW</span>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3 8L8 3L13 8" stroke="#0d1727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL = "https://vucjzluhyjvjspdsgrtj.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_tbuu65E64C_aANUAi2WCVw_d2Di6ac7";
+  const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+  const navToggle = document.getElementById('navToggle');
+  const navList = document.getElementById('navList');
+
+  if (navToggle && navList) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navList.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navList.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        navList.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  const nav = document.querySelector('nav');
+  const navLinks = document.querySelectorAll('#navList a');
+  const idSections = document.querySelectorAll('section[id]');
+
+  const setActiveNav = (id) => {
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute('href') === '#' + id;
+      link.classList.toggle('active', isActive);
+    });
+  };
+
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      document.getElementById('toTop')?.classList.toggle('show', window.scrollY > 500);
+    });
+  }
+
+  if (idSections.length) {
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveNav(entry.target.id);
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+
+    idSections.forEach((sec) => navObserver.observe(sec));
+  }
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('[data-reveal]').forEach((el) => revealObserver.observe(el));
+
+  document.querySelectorAll('.card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const wasOpen = card.classList.contains('open');
+      document.querySelectorAll('.card.open').forEach((c) => c.classList.remove('open'));
+      if (!wasOpen) card.classList.add('open');
+    });
+  });
+
+  document.getElementById('toTop')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  const form = document.getElementById('quoteForm');
+  const status = document.getElementById('formStatus');
+  const submitButton = form ? form.querySelector('button[type="submit"]') : null;
+
+  const setStatus = (message, isError = false) => {
+    if (!status) return;
+    status.style.color = isError ? '#ff8080' : 'var(--yellow)';
+    status.textContent = message;
+  };
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      document.querySelectorAll('.error-msg').forEach((el) => {
+        el.textContent = '';
+      });
+
+      const nameInput = form.querySelector('[name="name"]');
+      const phoneInput = form.querySelector('[name="phone"]');
+      const companyInput = form.querySelector('[name="company"]');
+      const productInput = form.querySelector('[name="product"]');
+      const messageInput = form.querySelector('[name="message"]');
+
+      const name = nameInput?.value.trim() || '';
+      const phone = phoneInput?.value.trim() || '';
+      const company = companyInput?.value.trim() || '';
+      const product = productInput?.value || '';
+      const message = messageInput?.value.trim() || '';
+
+      let valid = true;
+
+      if (!name) {
+        document.getElementById('errName').textContent = 'Please enter your name.';
+        valid = false;
+      }
+
+      if (!phone) {
+        document.getElementById('errPhone').textContent = 'Please enter a contact number.';
+        valid = false;
+      } else if (!/^[0-9+\-\s()]{7,}$/.test(phone)) {
+        document.getElementById('errPhone').textContent = 'Enter a valid phone number.';
+        valid = false;
+      }
+
+      if (!valid) {
+        setStatus('Please fix the fields above.', true);
+        return;
+      }
+
+      if (!supabaseClient) {
+        setStatus('Form is temporarily unavailable. Please call +91 99992 23223 instead.', true);
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+      setStatus('Sending your request...');
+
+      try {
+        const { error } = await supabaseClient
+          .from('quote_requests')
+          .insert([
+            {
+              name,
+              company: company || null,
+              phone,
+              product,
+              message: message || null
+            }
+          ]);
+
+        if (error) {
+          console.error('Supabase error:', error);
+          setStatus('Could not send your request. Please try again.', true);
+          return;
+        }
+
+        setStatus('Request sent successfully. We will contact you soon.');
+        form.reset();
+      } catch (error) {
+        console.error('Unexpected error:', error);
+        setStatus('Something went wrong. Please try again.', true);
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send request';
+        }
+      }
+    });
+  }
+  </script>
+
+</body>
+</html>
